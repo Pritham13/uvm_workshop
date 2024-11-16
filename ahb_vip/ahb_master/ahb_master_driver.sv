@@ -91,11 +91,11 @@ task ahb_master_driver::run_phase(uvm_phase phase);
     // Write sequence 
     if (req.m_read_write_enum == AHB_READ) begin
       // First clock cycle we get the valye if HBUSREQx
-			@(posedge vif.HCLK)
-      wait(vif.HBUSREQx == AHB_BUS_REQ_HIGH) begin 
-				// next clock cycle stimulate access to bus
+      @(posedge vif.HCLK)
+      wait (vif.HBUSREQx == AHB_BUS_REQ_HIGH) begin
+        // next clock cycle stimulate access to bus
         @(posedge vif.HCLK) vif.HGRANTx <= AHB_REQ_GRANTED;
-				// post address send data 
+        // post address send data 
         @(posedge vif.HCLK) vif.HWDATA <= req.m_rdata;
 
       end
