@@ -102,6 +102,24 @@ task ahb_master_driver::run_phase(uvm_phase phase);
     end
     // read sequence 
 
+    if (req.m_read_write_enum == AHB_READ) begin
+
+      @(posedge vif.HCLK)
+      wait (vif.HBUSREQx == AHB_BUS_REQ_HIGH) begin
+        // next clock cycle stimulate access to bus
+        @(posedge vif.HCLK) vif.HGRANTx <= AHB_REQ_GRANTED;
+        // stimulating the HREADY signal from slave
+        // waits 2 clock cycles since the address has to be sent and recieved 
+        @(posedge vif.HCLK) @(posedge vif.HCLK) vif.HREADY <= AHB_READY;
+        // stimulating the read data from slave 
+        @(posedge vif.HCLK) vif.HRDATA <= req.m_rdata;
+        // stimulating the response time from the slave
+        @(posedge vif.HCLK) vif.HRESP <= req.m_response_type_enum;
+
+      end
+
+    end
+
     // Complete the handshake with the sequencer with an item_done() call
     seq_item_port.item_done();
 

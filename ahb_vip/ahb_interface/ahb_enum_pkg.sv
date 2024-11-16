@@ -54,6 +54,10 @@ package ahb_enum_pkg;
     AHB_REQ_GRANTED = 1'b1
   } ahb_bus_grant_req;
 
+  typedef enum bit {
+    AHB_READY = 1'b0,
+    AHB_NOT_READY = 1'b1
+  } ahb_ready_types;
 endpackage : ahb_enum_pkg
 
 `endif
