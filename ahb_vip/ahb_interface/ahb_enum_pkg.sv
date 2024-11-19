@@ -37,10 +37,10 @@ package ahb_enum_pkg;
   // Declaring different types of responses for each transfer
   typedef enum bit [1:0] {
     AHB_OKAY  = 2'b00,
-    AHB_ERROR = 2'b10,
-    AHB_RETRY = 2'b11,
+    AHB_ERROR = 2'b01,
+    AHB_RETRY = 2'b10,
     AHB_SPLIT = 2'b11
-  } ahb_response_types_enum;
+  } ahb_response_type_enum;
 
   /////////////////////////////may be delted ///////////////////////////////////
   // Declaring different bus reques types to grant 

@@ -110,9 +110,7 @@ task ahb_master_driver::run_phase(uvm_phase phase);
         @(posedge vif.HCLK) vif.HGRANTx <= AHB_REQ_GRANTED;
         // stimulating the HREADY signal from slave
         // waits random number of  clock cycles since the address has to be sent and recieved 
-        int unsigned wait_time;
-        wait_time = $urandom_range(10, 1);
-        for (int i = 0; i <= wait_time; i++) begin
+        for (int i = 0; i <= $urandom_range(10, 1); i++) begin
           @(posedge vif.HCLK) vif.HREADY <= AHB_READY;
         end
         // stimulating the read data from slave 
