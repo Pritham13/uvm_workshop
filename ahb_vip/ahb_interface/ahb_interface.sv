@@ -8,7 +8,7 @@
 `ifndef AHB_INTERFACE__SV
 `define AHB_INTERFACE__SV
 
-interface ahb_interface#(AHB_ADDR_WIDTH=16,AHB_DATA_WIDTH=16)();
+interface ahb_interface#(AHB_ADDR_WIDTH=16,AHB_DATA_WIDTH=16)(input bit clk, rst);
 
     logic HCLK;
     logic HRESETn;
@@ -30,6 +30,8 @@ interface ahb_interface#(AHB_ADDR_WIDTH=16,AHB_DATA_WIDTH=16)();
     logic [3:0] HMASTER;
     logic HMASTLOCK;
     logic [15:0] HSPLITx;
+    assign HCLK = clk ;
+    assign HRESETn =rst;
 
 endinterface : ahb_interface
 

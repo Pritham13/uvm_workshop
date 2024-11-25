@@ -47,7 +47,9 @@ function void ahb_master_driver::build_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "Inside the Build Phase of ahb_master_driver.", UVM_HIGH)
 
   // Get the config_object from the uvm_config_db.
-  if (!uvm_config_db#(ahb_master_config#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))::get(this, "", "master_config_object", config_db)) begin
+  if (!uvm_config_db#(ahb_master_config#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))::get(
+          this, "", "master_config_object", config_db
+      )) begin
     `uvm_fatal(get_type_name(), "The Configuration Object for the driver has not been set.")
   end
 
@@ -85,24 +87,43 @@ task ahb_master_driver::run_phase(uvm_phase phase);
     rsp.set_id_info(req);
 
     // Please put your logic here....
-    @(posedge vif.HCLK) begin
-    	// address phase
-    	vif.HADDR <= req.m_address;
-	vif.HWRITE <= 1;
-	forever begin
-		@(posedge vif.HCLK)
-		if (vif.HREADY == AHB_READY)
-			break;		
-	end
 
-	// data phase
-	if(vif.HWRITE== AHB_WRITE) begin
-		vif.HWDATA <= req.m_wdata;
-	end
-	 if(req.m_read_write_enum == AHB_READ) begin
-	 	rsp.m_rdata <= req.m_rdata; 
-	end
-    end 
+    // Write sequence 
+    if (req.m_read_write_enum == AHB_READ) begin
+      // First clock cycle we get the valye if HBUSREQx
+      @(posedge vif.HCLK)
+      wait (vif.HBUSREQx == AHB_BUS_REQ_HIGH) begin
+        // next clock cycle stimulate access to bus
+        @(posedge vif.HCLK) vif.HGRANTx <= AHB_REQ_GRANTED;
+	// stimulating HREADY  from slave 
+ 	for (int i = 0; i <= $urandom_range(10, 1); i++) begin
+          @(posedge vif.HCLK) vif.HREADY <= AHB_READY;
+        end
+
+
+      end
+    end
+    // read sequence 
+
+    if (req.m_read_write_enum == AHB_READ) begin
+
+      @(posedge vif.HCLK)
+      wait (vif.HBUSREQx == AHB_BUS_REQ_HIGH) begin
+        // next clock cycle stimulate access to bus
+        @(posedge vif.HCLK) vif.HGRANTx <= AHB_REQ_GRANTED;
+        // stimulating the HREADY signal from slave
+        // waits random number of  clock cycles since the address has to be sent and recieved 
+        for (int i = 0; i <= $urandom_range(10, 1); i++) begin
+          @(posedge vif.HCLK) vif.HREADY <= AHB_READY;
+        end
+        // stimulating the read data from slave 
+        @(posedge vif.HCLK) vif.HRDATA <= req.m_rdata;
+        // stimulating the response typpe from the slave
+        @(posedge vif.HCLK) vif.HRESP <= req.m_response_type_enum;
+
+      end
+
+    end
 
     // Complete the handshake with the sequencer with an item_done() call
     seq_item_port.item_done();

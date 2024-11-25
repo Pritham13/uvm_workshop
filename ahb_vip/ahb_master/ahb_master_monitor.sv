@@ -73,6 +73,25 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
 
     // Please put your logic here....
 
+    //localparam [1:0] s_IDLE = 2'd0 ;
+    //localparam [1:0] s_ADDR = 2'd1 ;
+    //localparam [1:0] s_READ = 2'd2;
+    //localparam [1:0] s_WRITE = 2'd3;
+
+    //logic [1:0] state = s_IDLE;
+     		
+    //forever begin 
+    //@(posedge vif.HCLK)
+    //case(state) :
+
+    // s_IDLE : state <= (vif.HREADY == AHB_READY) ? s_ADDR : s_
+
+    //end
+
+
+
+
+
 endtask : run_phase
 
 
