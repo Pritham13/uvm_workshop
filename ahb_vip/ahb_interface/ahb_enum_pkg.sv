@@ -58,6 +58,15 @@ package ahb_enum_pkg;
     AHB_NOT_READY = 1'b0,
     AHB_READY = 1'b1
   } ahb_ready_types;
+
+  // Declaring different states of operation  
+  typedef enum bit {
+    s_IDLE  = 3'd0,
+		s_ADDR = 3'd1,
+    s_READ  = 3'd2,
+    s_WRITE = 3'd3
+
+  } ahb_states;
 endpackage : ahb_enum_pkg
 
 `endif

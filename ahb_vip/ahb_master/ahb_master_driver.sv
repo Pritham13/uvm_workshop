@@ -47,7 +47,9 @@ function void ahb_master_driver::build_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "Inside the Build Phase of ahb_master_driver.", UVM_HIGH)
 
   // Get the config_object from the uvm_config_db.
-  if (!uvm_config_db#(ahb_master_config#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))::get(this, "", "master_config_object", config_db)) begin
+  if (!uvm_config_db#(ahb_master_config#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))::get(
+          this, "", "master_config_object", config_db
+      )) begin
     `uvm_fatal(get_type_name(), "The Configuration Object for the driver has not been set.")
   end
 
@@ -86,23 +88,25 @@ task ahb_master_driver::run_phase(uvm_phase phase);
 
     // Please put your logic here....
     @(posedge vif.HCLK) begin
-    	// address phase
-    	vif.HADDR <= req.m_address;
-	vif.HWRITE <= 1;
-	forever begin
-		@(posedge vif.HCLK)
-		if (vif.HREADY == AHB_READY)
-			break;		
-	end
+      // address phase
+      vif.HADDR  <= req.m_address;
+      vif.HWRITE <= 1;
+      forever begin
+        @(posedge vif.HCLK) begin
+          if (vif.HREADY == AHB_READY) begin
+            break;
+          end
+        end
+      end
 
-	// data phase
-	if(vif.HWRITE== AHB_WRITE) begin
-		vif.HWDATA <= req.m_wdata;
-	end
-	 if(req.m_read_write_enum == AHB_READ) begin
-	 	rsp.m_rdata <= req.m_rdata; 
-	end
-    end 
+      // data phase
+      if (vif.HWRITE == AHB_WRITE) begin
+        vif.HWDATA <= req.m_wdata;
+      end
+      if (req.m_read_write_enum == AHB_READ) begin
+        rsp.m_rdata <= req.m_rdata;
+      end
+    end
 
     // Complete the handshake with the sequencer with an item_done() call
     seq_item_port.item_done();

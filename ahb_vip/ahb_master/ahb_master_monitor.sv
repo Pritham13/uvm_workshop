@@ -8,86 +8,112 @@
 `ifndef AHB_MASTER_MONITOR__SV
 `define AHB_MASTER_MONITOR__SV
 
-class ahb_master_monitor#(AHB_ADDR_WIDTH=16,AHB_DATA_WIDTH=16) extends uvm_monitor;
+class ahb_master_monitor #(
+    AHB_ADDR_WIDTH = 16,
+    AHB_DATA_WIDTH = 16
+) extends uvm_monitor;
 
-    // Declare a handle to the configdb object associated with this agent.
-    ahb_master_config#(AHB_ADDR_WIDTH,AHB_DATA_WIDTH) config_db;
+  // Declare a handle to the configdb object associated with this agent.
+  ahb_master_config #(AHB_ADDR_WIDTH, AHB_DATA_WIDTH) config_db;
 
-    // Declare a handle to the Virtual Interface
-    virtual ahb_interface#(AHB_ADDR_WIDTH,AHB_DATA_WIDTH) vif;
+  // Declare a handle to the Virtual Interface
+  virtual ahb_interface #(AHB_ADDR_WIDTH, AHB_DATA_WIDTH) vif;
 
-    // Register the class ahb_master_monitor with the factory.
-    `uvm_component_param_utils(ahb_master_monitor#(AHB_ADDR_WIDTH,AHB_DATA_WIDTH))
+  // Register the class ahb_master_monitor with the factory.
+  `uvm_component_param_utils(ahb_master_monitor#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))
 
-    // The Constructor for this Class.
-    function new(string name="ahb_master_monitor", uvm_component parent);
-        super.new(name, parent);
-    endfunction: new
+  // The Constructor for this Class.
+  function new(string name = "ahb_master_monitor", uvm_component parent);
+    super.new(name, parent);
+  endfunction : new
 
-    // Declare the build phase of the UVM Monitor.
-    extern virtual function void build_phase(uvm_phase phase);
+  // Declare the build phase of the UVM Monitor.
+  extern virtual function void build_phase(uvm_phase phase);
 
-    // Declare the connect phase of the UVM Monitor.
-    extern virtual function void connect_phase(uvm_phase phase);
+  // Declare the connect phase of the UVM Monitor.
+  extern virtual function void connect_phase(uvm_phase phase);
 
-    // Declare the run phase of the UVM Monitor.
-    extern task run_phase(uvm_phase phase);
+  // Declare the run phase of the UVM Monitor.
+  extern task run_phase(uvm_phase phase);
 
-endclass: ahb_master_monitor
+endclass : ahb_master_monitor
 
 
 // Define the build phase of the UVM Monitor.
 function void ahb_master_monitor::build_phase(uvm_phase phase);
 
-    super.build_phase(phase);
+  super.build_phase(phase);
 
-    `uvm_info(get_type_name(), "Inside the Build Phase of ahb_master_monitor.", UVM_HIGH)
+  `uvm_info(get_type_name(), "Inside the Build Phase of ahb_master_monitor.", UVM_HIGH)
 
-    // Get the config_object from the uvm_config_db.
-    if(!uvm_config_db#(ahb_master_config#(AHB_ADDR_WIDTH,AHB_DATA_WIDTH))::get(this, "", "master_config_object", config_db))
-    begin
-        `uvm_fatal(get_type_name(), "The Configuration Object for the monitor has not been set.")
-    end
+  // Get the config_object from the uvm_config_db.
+  if (!uvm_config_db#(ahb_master_config#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))::get(
+          this, "", "master_config_object", config_db
+      )) begin
+    `uvm_fatal(get_type_name(), "The Configuration Object for the monitor has not been set.")
+  end
 
-endfunction: build_phase
+endfunction : build_phase
 
 
 // Define the connect phase of the UVM Monitor.
 function void ahb_master_monitor::connect_phase(uvm_phase phase);
 
-    super.connect_phase(phase);
+  super.connect_phase(phase);
 
-    `uvm_info(get_type_name(), "Inside the Connect Phase of ahb_master_monitor.", UVM_HIGH)
+  `uvm_info(get_type_name(), "Inside the Connect Phase of ahb_master_monitor.", UVM_HIGH)
 
-    vif = config_db.vif;
+  vif = config_db.vif;
 
-endfunction: connect_phase
+endfunction : connect_phase
 
 
 // Define the run phase of the UVM Monitor.
 task ahb_master_monitor::run_phase(uvm_phase phase);
 
-    super.run_phase(phase);
+  super.run_phase(phase);
 
-    `uvm_info(get_type_name(), "Inside the Run Phase of ahb_master_monitor.", UVM_HIGH)
+  `uvm_info(get_type_name(), "Inside the Run Phase of ahb_master_monitor.", UVM_HIGH)
 
-    // Please put your logic here....
+  // Please put your logic here....
+  ahb_states state;
+  localparam AHB_ADDR_WIDTH = 16;
+  localparam AHB_DATA_WIDTH = 16;
+  state = s_IDLE;
+  bit [AHB_ADDR_WIDTH-1 : 0] m_addr;
+  bit [AHB_DATA_WIDTH-1 : 0] m_rdata;
+  bit [AHB_DATA_WIDTH-1 : 0] m_wdata;
 
-    //localparam [1:0] s_IDLE = 2'd0 ;
-    //localparam [1:0] s_ADDR = 2'd1 ;
-    //localparam [1:0] s_READ = 2'd2;
-    //localparam [1:0] s_WRITE = 2'd3;
 
-    //logic [1:0] state = s_IDLE;
-     		
-    //forever begin 
-    //@(posedge vif.HCLK)
-    //case(state) :
+  case (state)
+    s_ADDR: begin
+      @(posedge vif.HCLK) begin
+        m_address <= vif.HADDR;//TODO: need to figure if we should put data to analysis port if not what to compare it with
+        // to stimulate the ready signal
+        vif.HREADY <= AHB_READY;
+      end
+      state = vif.HWRITE ? s_WRITE : s_READ;
+    end
 
-    // s_IDLE : state <= (vif.HREADY == AHB_READY) ? s_ADDR : s_
+    s_WRITE: begin
+      @(posedge vif.HCLK) begin
+        m_wdata <= vif.HWDATA;  // TODO: need to figure if we should put data to analysis port if not what to compare it with 
+        vif.HREADY <= AHB_READY;
+      end
+      // since we are only writing for NONSEQ 
+      state = s_ADDR;
+    end
 
-    //end
+    s_READ: begin
+      @(posedge vif.HCLK) begin
+        vif.HRDATA = m_rdata;  // TODO: need to figure out how to get rdata 
+        vif.HREADY <= AHB_READY;
+      end
+      // since we are only writing for NONSEQ 
+      state = s_ADDR;
+    end
 
+  endcase
 
 
 
