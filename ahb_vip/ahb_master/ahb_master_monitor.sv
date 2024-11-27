@@ -15,8 +15,6 @@ class ahb_master_monitor #(
 
   // variables for the run phase
   ahb_states state;
-  localparam AHB_ADDR_WIDTH = 16;
-  localparam AHB_DATA_WIDTH = 16;
 
   // Declare a handle to the configdb object associated with this agent.
   ahb_master_config #(AHB_ADDR_WIDTH, AHB_DATA_WIDTH) config_db;
@@ -81,6 +79,7 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "Inside the Run Phase of ahb_master_monitor.", UVM_HIGH)
 
   // Please put your logic here....
+	// Transaction object to store the states of the SIGNALS
 	ahb_master_transaction req ;
 	req = ahb_master_transaction#(.AHB_ADDR_WIDTH(32),.AHB_DATA_WIDTH(32))::type_id::create("req",this);
 
