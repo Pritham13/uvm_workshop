@@ -8,44 +8,46 @@
 `ifndef AHB_MASTER_TRANSACTION__SV
 `define AHB_MASTER_TRANSACTION__SV
 
-class ahb_master_transaction#(AHB_ADDR_WIDTH=16,AHB_DATA_WIDTH=16) extends uvm_sequence_item;
-	 // Address bit 
-		bit [AHB_ADDR_WIDTH-1:0] m_address;
+class ahb_master_transaction #(
+    AHB_ADDR_WIDTH = 16,
+    AHB_DATA_WIDTH = 16
+) extends uvm_sequence_item;
+  // Address bit 
+  bit [AHB_ADDR_WIDTH-1:0] m_address;
 
-		// read / write mode 
-		rand ahb_read_write_enum m_read_write_enum;
+  // read / write mode 
+  rand ahb_read_write_enum m_read_write_enum;
 
-		// read data 
-		rand bit [AHB_DATA_WIDTH-1 : 0] m_rdata;
+  // read data 
+  rand bit [AHB_DATA_WIDTH-1 : 0] m_rdata;
 
-		// write data 
-		rand bit [AHB_DATA_WIDTH-1 : 0] m_wdata;
+  // write data 
+  rand bit [AHB_DATA_WIDTH-1 : 0] m_wdata;
 
-		// not randomised cause we will be testing some modes
-		rand ahb_response_type_enum m_response_type_enum;
+  rand ahb_response_type_enum m_response_type_enum;
 
-		rand ahb_transfer_type_enum m_transfer_type_enum;
+  rand ahb_transfer_type_enum m_transfer_type_enum;
 
-		rand ahb_burst_type_enum m_burst_type_enum;
-
+  rand ahb_burst_type_enum m_burst_type_enum;
 
 
-    // Register the class ahb_master_transaction with the factory.
-    `uvm_object_param_utils_begin(ahb_master_transaction#(AHB_ADDR_WIDTH,AHB_DATA_WIDTH))
-			`uvm_field_int(m_address,UVM_ALL_ON);
-			`uvm_field_int(m_rdata,UVM_ALL_ON);
-			`uvm_field_enum(ahb_read_write_enum, m_read_write_enum,UVM_ALL_ON);
-			`uvm_field_enum(ahb_response_type_enum,m_response_type_enum,UVM_ALL_ON);
-			`uvm_field_enum(ahb_transfer_type_enum , m_transfer_type_enum,UVM_ALL_ON);
-			`uvm_field_enum(ahb_burst_type_enum , m_burst_type_enum,UVM_ALL_ON);
-    `uvm_object_utils_end
 
-    // The Constructor for this Class.
-    function new(string name="ahb_master_transaction");
-        super.new(name);
-    endfunction: new
+  // Register the class ahb_master_transaction with the factory.
+  `uvm_object_param_utils_begin(ahb_master_transaction#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))
+    `uvm_field_int(m_address, UVM_ALL_ON);
+    `uvm_field_int(m_rdata, UVM_ALL_ON);
+    `uvm_field_enum(ahb_read_write_enum, m_read_write_enum, UVM_ALL_ON);
+    `uvm_field_enum(ahb_response_type_enum, m_response_type_enum, UVM_ALL_ON);
+    `uvm_field_enum(ahb_transfer_type_enum, m_transfer_type_enum, UVM_ALL_ON);
+    `uvm_field_enum(ahb_burst_type_enum, m_burst_type_enum, UVM_ALL_ON);
+  `uvm_object_utils_end
 
-endclass: ahb_master_transaction
+  // The Constructor for this Class.
+  function new(string name = "ahb_master_transaction");
+    super.new(name);
+  endfunction : new
+
+endclass : ahb_master_transaction
 
 
 `endif

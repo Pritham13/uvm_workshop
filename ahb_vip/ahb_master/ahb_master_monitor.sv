@@ -13,6 +13,11 @@ class ahb_master_monitor #(
     AHB_DATA_WIDTH = 16
 ) extends uvm_monitor;
 
+  // variables for the run phase
+  ahb_states state;
+  localparam AHB_ADDR_WIDTH = 16;
+  localparam AHB_DATA_WIDTH = 16;
+
   // Declare a handle to the configdb object associated with this agent.
   ahb_master_config #(AHB_ADDR_WIDTH, AHB_DATA_WIDTH) config_db;
 
@@ -76,49 +81,54 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "Inside the Run Phase of ahb_master_monitor.", UVM_HIGH)
 
   // Please put your logic here....
-  ahb_states state;
-  localparam AHB_ADDR_WIDTH = 16;
-  localparam AHB_DATA_WIDTH = 16;
+	ahb_master_transaction req ;
+	req = ahb_master_transaction#(.AHB_ADDR_WIDTH(32),.AHB_DATA_WIDTH(32))::type_id::create("req",this);
+
   state = s_IDLE;
-  bit [AHB_ADDR_WIDTH-1 : 0] m_addr;
-  bit [AHB_DATA_WIDTH-1 : 0] m_rdata;
-  bit [AHB_DATA_WIDTH-1 : 0] m_wdata;
 
+  forever begin
 
-  case (state)
-    s_ADDR: begin
-      @(posedge vif.HCLK) begin
-        m_address <= vif.HADDR;//TODO: need to figure if we should put data to analysis port if not what to compare it with
-        // to stimulate the ready signal
-        vif.HREADY <= AHB_READY;
+    @(posedge vif.HCLK)
+
+    case (state)
+      s_ADDR: begin
+        req.m_address <= vif.HADDR;//TODO: need to figure if we should put data to analysis port if not what to compare it with
+        forever begin
+          @(posedge vif.HCLK)
+          if (vif.HREADY == AHB_READY) begin
+            state = vif.HWRITE ? s_WRITE : s_READ;
+            break;
+          end
+        end
       end
-      state = vif.HWRITE ? s_WRITE : s_READ;
-    end
 
-    s_WRITE: begin
-      @(posedge vif.HCLK) begin
-        m_wdata <= vif.HWDATA;  // TODO: need to figure if we should put data to analysis port if not what to compare it with 
-        vif.HREADY <= AHB_READY;
+      s_WRITE: begin
+        forever begin
+					req.m_wdata = vif.HWDATA ;
+          @(posedge vif.HCLK)
+          if (vif.HREADY == AHB_READY) begin
+            // since we are only writing for NONSEQ 
+            state = s_ADDR;
+            break;
+          end
+        end
       end
-      // since we are only writing for NONSEQ 
-      state = s_ADDR;
-    end
 
-    s_READ: begin
-      @(posedge vif.HCLK) begin
-        vif.HRDATA = m_rdata;  // TODO: need to figure out how to get rdata 
-        vif.HREADY <= AHB_READY;
+      s_READ: begin
+        req.m_rdata = vif.HRDATA;  // TODO: need to figure out how to get rdata
+        forever begin
+          @(posedge vif.HCLK)
+          if (vif.HREADY == AHB_READY) begin
+            // since we are only writing for NONSEQ 
+            state = s_ADDR;
+            break;
+          end
+        end
       end
-      // since we are only writing for NONSEQ 
-      state = s_ADDR;
-    end
 
-  endcase
-
-
-
+    endcase
+  end
 
 endtask : run_phase
-
 
 `endif
