@@ -15,6 +15,8 @@ class ahb_master_monitor #(
 
   // variables for the run phase
   ahb_states state;
+  
+  
 
   // Declare a handle to the configdb object associated with this agent.
   ahb_master_config #(AHB_ADDR_WIDTH, AHB_DATA_WIDTH) config_db;
@@ -24,6 +26,8 @@ class ahb_master_monitor #(
 
   // Register the class ahb_master_monitor with the factory.
   `uvm_component_param_utils(ahb_master_monitor#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))
+  
+  ahb_master_transaction #(AHB_ADDR_WIDTH,AHB_DATA_WIDTH) req;
 
   // The Constructor for this Class.
   function new(string name = "ahb_master_monitor", uvm_component parent);
@@ -80,9 +84,8 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
 
   // Please put your logic here....
 	// Transaction object to store the states of the SIGNALS
-	ahb_master_transaction req ;
-	req = ahb_master_transaction#(.AHB_ADDR_WIDTH(32),.AHB_DATA_WIDTH(32))::type_id::create("req",this);
-
+	
+  req = ahb_master_transaction #(AHB_ADDR_WIDTH,AHB_DATA_WIDTH)::type_id::create("req", this);
   state = s_IDLE;
 
   forever begin
@@ -101,9 +104,8 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
         end
       end
 
-      s_WRITE: begin
-        forever begin
-					req.m_wdata = vif.HWDATA ;
+      s_READY_CHECK : begin
+	forever begin
           @(posedge vif.HCLK)
           if (vif.HREADY == AHB_READY) begin
             // since we are only writing for NONSEQ 
@@ -113,16 +115,14 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
         end
       end
 
+      s_WRITE: begin
+	  req.m_wdata = vif.HWDATA ;
+          state = s_READY_CHECK;
+      end
+
       s_READ: begin
         req.m_rdata = vif.HRDATA;  // TODO: need to figure out how to get rdata
-        forever begin
-          @(posedge vif.HCLK)
-          if (vif.HREADY == AHB_READY) begin
-            // since we are only writing for NONSEQ 
-            state = s_ADDR;
-            break;
-          end
-        end
+        state = s_READY_CHECK;
       end
 
     endcase
