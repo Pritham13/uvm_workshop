@@ -15,8 +15,8 @@ class ahb_master_monitor #(
 
   // variables for the run phase
   ahb_states state;
-  
-  
+
+
 
   // Declare a handle to the configdb object associated with this agent.
   ahb_master_config #(AHB_ADDR_WIDTH, AHB_DATA_WIDTH) config_db;
@@ -26,8 +26,8 @@ class ahb_master_monitor #(
 
   // Register the class ahb_master_monitor with the factory.
   `uvm_component_param_utils(ahb_master_monitor#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH))
-  
-  ahb_master_transaction #(AHB_ADDR_WIDTH,AHB_DATA_WIDTH) req;
+
+  ahb_master_transaction #(AHB_ADDR_WIDTH, AHB_DATA_WIDTH) req;
 
   // The Constructor for this Class.
   function new(string name = "ahb_master_monitor", uvm_component parent);
@@ -83,9 +83,9 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "Inside the Run Phase of ahb_master_monitor.", UVM_HIGH)
 
   // Please put your logic here....
-	// Transaction object to store the states of the SIGNALS
-	
-  req = ahb_master_transaction #(AHB_ADDR_WIDTH,AHB_DATA_WIDTH)::type_id::create("req", this);
+  // Transaction object to store the states of the SIGNALS
+
+  req   = ahb_master_transaction#(AHB_ADDR_WIDTH, AHB_DATA_WIDTH)::type_id::create("req", this);
   state = s_IDLE;
 
   forever begin
@@ -93,31 +93,59 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
     @(posedge vif.HCLK)
 
     case (state)
+
+      s_IDLE: begin
+        if (vif.HTRANS == AHB_IDLE) begin
+          state = s_IDLE;
+        end 
+
+				else begin
+          state = s_ADDR;
+        end
+      end
+
       s_ADDR: begin
         req.m_address <= vif.HADDR;//TODO: need to figure if we should put data to analysis port if not what to compare it with
         forever begin
           @(posedge vif.HCLK)
-          if (vif.HREADY == AHB_READY) begin
+          if (vif.HREADY == AHB_READY ) begin
             state = vif.HWRITE ? s_WRITE : s_READ;
             break;
           end
         end
       end
 
-      s_READY_CHECK : begin
-	forever begin
-          @(posedge vif.HCLK)
-          if (vif.HREADY == AHB_READY) begin
+      s_READY_CHECK: begin
+
+        forever begin
+        
+					@(posedge vif.HCLK)
+          
+					if (vif.HREADY == AHB_READY) begin
             // since we are only writing for NONSEQ 
-            state = s_ADDR;
-            break;
-          end
+            // state = s_ADDR;
+					
+						if (vif.HTRANS == AHB_IDLE) begin
+							state = s_IDLE ;
+						end
+
+						else if (vif.HWRITE == AHB_READ) begin
+							state = s_READ;
+						end
+						
+						else if (vif.HWRITE == AHB_WRITE) begin
+							state = s_WRITE ;
+						end
+            
+						break;
+          
+					end
         end
       end
 
       s_WRITE: begin
-	  req.m_wdata = vif.HWDATA ;
-          state = s_READY_CHECK;
+        req.m_wdata = vif.HWDATA;
+        state = s_READY_CHECK;
       end
 
       s_READ: begin

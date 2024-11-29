@@ -13,7 +13,7 @@ class ahb_master_transaction #(
     AHB_DATA_WIDTH = 16
 ) extends uvm_sequence_item;
   // Address bit 
-  bit [AHB_ADDR_WIDTH-1:0] m_address;
+  rand bit [AHB_ADDR_WIDTH-1:0] m_address;
 
   // read / write mode 
   rand ahb_read_write_enum m_read_write_enum;
@@ -24,11 +24,12 @@ class ahb_master_transaction #(
   // write data 
   rand bit [AHB_DATA_WIDTH-1 : 0] m_wdata;
 
+	// response types
   rand ahb_response_type_enum m_response_type_enum;
 
+	// types of transfers
   rand ahb_transfer_type_enum m_transfer_type_enum;
 
-  rand ahb_burst_type_enum m_burst_type_enum;
 
 
 

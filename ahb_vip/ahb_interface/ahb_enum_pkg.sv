@@ -68,6 +68,7 @@ package ahb_enum_pkg;
     s_READY_CHECK = 3'b101
 
   } ahb_states;
+
 endpackage : ahb_enum_pkg
 
 `endif

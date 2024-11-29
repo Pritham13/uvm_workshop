@@ -90,7 +90,8 @@ task ahb_master_driver::run_phase(uvm_phase phase);
     @(posedge vif.HCLK) begin
       // address phase
       vif.HADDR  <= req.m_address;
-      vif.HWRITE <= 1;
+      vif.HWRITE <= req.m_read_write_enum;
+      vif.HTRANS <= AHB_IDLE;
       forever begin
         @(posedge vif.HCLK) begin
           if (vif.HREADY == AHB_READY) begin
@@ -102,9 +103,11 @@ task ahb_master_driver::run_phase(uvm_phase phase);
       // data phase
       if (vif.HWRITE == AHB_WRITE) begin
         vif.HWDATA <= req.m_wdata;
+        vif.HTRANS <= AHB_NONSEQ;
       end
       if (req.m_read_write_enum == AHB_READ) begin
         rsp.m_rdata <= req.m_rdata;
+        vif.HTRANS  <= AHB_NONSEQ;
       end
     end
 
