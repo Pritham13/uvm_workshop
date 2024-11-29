@@ -106,7 +106,7 @@ task ahb_master_driver::run_phase(uvm_phase phase);
         vif.HTRANS <= AHB_NONSEQ;
       end
       if (req.m_read_write_enum == AHB_READ) begin
-        rsp.m_rdata <= req.m_rdata;
+        rsp.m_rdata <= vif.HRDATA;
         vif.HTRANS  <= AHB_NONSEQ;
       end
     end

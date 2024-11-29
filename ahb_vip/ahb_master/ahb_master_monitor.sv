@@ -43,6 +43,9 @@ class ahb_master_monitor #(
   // Declare the run phase of the UVM Monitor.
   extern task run_phase(uvm_phase phase);
 
+  // task for checking ready
+  extern task check_ready();
+
 endclass : ahb_master_monitor
 
 
@@ -74,7 +77,28 @@ function void ahb_master_monitor::connect_phase(uvm_phase phase);
 
 endfunction : connect_phase
 
+task ahb_master_monitor::check_ready();
+  forever begin
+          
+            @(posedge vif.HCLK)
+            
+            if (vif.HREADY == AHB_READY) begin
+              // since we are only writing for NONSEQ 
+              // state = s_ADDR;
+            
+              if (vif.HTRANS == AHB_IDLE) begin
+                state = s_IDLE ;
+              end
 
+              else begin
+                state = s_READ;
+              end
+              break;
+            end
+          end
+endtask : check_ready
+
+  
 // Define the run phase of the UVM Monitor.
 task ahb_master_monitor::run_phase(uvm_phase phase);
 
@@ -98,7 +122,6 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
         if (vif.HTRANS == AHB_IDLE) begin
           state = s_IDLE;
         end 
-
 				else begin
           state = s_ADDR;
         end
@@ -116,32 +139,9 @@ task ahb_master_monitor::run_phase(uvm_phase phase);
       end
 
       s_READY_CHECK: begin
-
-        forever begin
-        
-					@(posedge vif.HCLK)
-          
-					if (vif.HREADY == AHB_READY) begin
-            // since we are only writing for NONSEQ 
-            // state = s_ADDR;
-					
-						if (vif.HTRANS == AHB_IDLE) begin
-							state = s_IDLE ;
-						end
-
-						else if (vif.HWRITE == AHB_READ) begin
-							state = s_READ;
-						end
-						
-						else if (vif.HWRITE == AHB_WRITE) begin
-							state = s_WRITE ;
-						end
-            
-						break;
-          
-					end
-        end
+        check_ready();
       end
+  
 
       s_WRITE: begin
         req.m_wdata = vif.HWDATA;

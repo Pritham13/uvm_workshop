@@ -40,11 +40,21 @@ module ahb_config_pcounter_testbench_top();
     // Instantiate the Hardware Components
     //Fix me: Please Put your your logic here
     pcounter_ahb_wrapper dut(
-     .haddr ( ahb_slave_interface.HADDR ),
-     .hwdata ( ahb_slave_interface.HWDATA),
-     .hrdata( ahb_slave_interface.HRDATA),
-     .hclk ( ahb_slave_interface.HCLK),
-     .hready ( ahb_slave_interface.HREADY));
+    .hclk       (ahb_slave_interface.HCLK),
+    .hreset_n   (ahb_slave_interface.HRESETn),
+    .hready_in  (ahb_slave_interface.HREADY_IN),
+    .haddr      (ahb_slave_interface.HADDR),
+    .hwdata     (ahb_slave_interface.HWDATA),
+    .hrdata     (ahb_slave_interface.HRDATA),
+    .hwrite     (ahb_slave_interface.HWRITE),
+    .hresp      (ahb_slave_interface.HRESP),
+    .htrans     (ahb_slave_interface.HTRANS),
+    .hburst     (ahb_slave_interface.HBURST),
+    .hsize      (ahb_slave_interface.HSIZE),
+    .hready     (ahb_slave_interface.HREADY),
+    .hsel       (ahb_slave_interface.HSEL),
+    .hprot      (ahb_slave_interface.HPROT)
+    );
 
     clock_generator#(.TIME_PERIOD(10)) clk_gen_inst_0();
 
