@@ -40,7 +40,7 @@ class ahb_master_transaction #(
     `uvm_field_enum(ahb_read_write_enum, m_read_write_enum, UVM_ALL_ON);
     `uvm_field_enum(ahb_response_type_enum, m_response_type_enum, UVM_ALL_ON);
     `uvm_field_enum(ahb_transfer_type_enum, m_transfer_type_enum, UVM_ALL_ON);
-    `uvm_field_enum(ahb_burst_type_enum, m_burst_type_enum, UVM_ALL_ON);
+    // `uvm_field_enum(ahb_burst_type_enum, m_burst_type_enum, UVM_ALL_ON);
   `uvm_object_utils_end
 
   // The Constructor for this Class.
