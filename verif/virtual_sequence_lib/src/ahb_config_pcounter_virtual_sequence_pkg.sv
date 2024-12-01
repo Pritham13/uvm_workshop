@@ -5,26 +5,27 @@
 //// overwritten by the tool when regenerating the files. 
 ////----------------------------------------------------------------------
 
-`ifndef AHB_CONFIG_PCOUNTER_ENV_PKG__SV
-`define AHB_CONFIG_PCOUNTER_ENV_PKG__SV
+`ifndef AHB_CONFIG_PCOUNTER_VIRTUAL_SEQUENCE_PKG__SV
+`define AHB_CONFIG_PCOUNTER_VIRTUAL_SEQUENCE_PKG__SV
 
 `include "uvm_macros.svh"
 
-package ahb_config_pcounter_env_pkg;
+package ahb_config_pcounter_virtual_sequence_pkg;
 
     import uvm_pkg::*;
     import ahb_enum_pkg::*;
     import ahb_master_transaction_pkg::*;
     import ahb_master_agent_pkg::*;
 
-<<<<<<< HEAD
-//    `include "ahb_config_pcounter_defines.sv"
-=======
-    `include "ahb_config_pcounter_defines.sv"
->>>>>>> dc7df3c (adding files from the final session)
-    `include "ahb_config_pcounter_virtual_sequencer.sv"
-    `include "ahb_config_pcounter_env.sv"
+    import ahb_master_basic_sequence_pkg::*;
+    import ahb_config_pcounter_env_pkg::*;
 
-endpackage : ahb_config_pcounter_env_pkg
+    `include "ahb_config_pcounter_defines.sv"
+    `include "ahb_config_pcounter_virtual_sequence_list.sv"
+    `include "write_vseq.sv"
+    `include "count_0_to_100_by_step_5_vseq.sv"
+    
+
+endpackage : ahb_config_pcounter_virtual_sequence_pkg
 
 `endif

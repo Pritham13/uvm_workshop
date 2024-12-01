@@ -5,26 +5,24 @@
 //// overwritten by the tool when regenerating the files. 
 ////----------------------------------------------------------------------
 
-`ifndef AHB_CONFIG_PCOUNTER_ENV_PKG__SV
-`define AHB_CONFIG_PCOUNTER_ENV_PKG__SV
+`ifndef AHB_MASTER_AGENT_PKG__SV
+`define AHB_MASTER_AGENT_PKG__SV
 
 `include "uvm_macros.svh"
 
-package ahb_config_pcounter_env_pkg;
+package ahb_master_agent_pkg;
 
     import uvm_pkg::*;
+    import ahb_enum_types_pkg::*;
     import ahb_enum_pkg::*;
     import ahb_master_transaction_pkg::*;
-    import ahb_master_agent_pkg::*;
 
-<<<<<<< HEAD
-//    `include "ahb_config_pcounter_defines.sv"
-=======
-    `include "ahb_config_pcounter_defines.sv"
->>>>>>> dc7df3c (adding files from the final session)
-    `include "ahb_config_pcounter_virtual_sequencer.sv"
-    `include "ahb_config_pcounter_env.sv"
+    `include "ahb_master_config.sv"
+    `include "ahb_master_driver.sv"
+    `include "ahb_master_monitor.sv"
+    `include "ahb_master_sequencer.sv"
+    `include "ahb_master_agent.sv"
 
-endpackage : ahb_config_pcounter_env_pkg
+endpackage : ahb_master_agent_pkg
 
 `endif

@@ -19,7 +19,11 @@ class ahb_config_pcounter_virtual_sequencer extends uvm_virtual_sequencer;
     endfunction: new
 
     // Declare the SubSequencer Handles in this Virtual Sequencer.
+<<<<<<< HEAD
     ahb_master_sequencer#(.ADDR_WIDTH(32), .DATA_WIDTH(32)) ahb_master_sequencer_0;
+=======
+    ahb_master_sequencer#(.ADDR_WIDTH(16), .DATA_WIDTH(16)) ahb_master_sequencer_0;
+>>>>>>> dc7df3c (adding files from the final session)
 
     // Declare the Build Phase of the Virtual Sequencer
     extern virtual function void build_phase(uvm_phase phase);
@@ -37,4 +41,8 @@ function void ahb_config_pcounter_virtual_sequencer::build_phase(uvm_phase phase
 endfunction: build_phase
 
 
+<<<<<<< HEAD
 `endif
+=======
+`endif
+>>>>>>> dc7df3c (adding files from the final session)
