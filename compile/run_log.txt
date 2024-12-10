@@ -1,0 +1,169 @@
+./simv \
+    +UVM_DEFAULT_TIMEOUT=9200ns +UVM_VERBOSITY=UVM_MEDIUM -l /home/student/cadWorkDir/synopsys/uvm_workshop/compile//sim.log  \
+    +UVM_TESTNAME=start_counter_test
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+Chronologic VCS simulator copyright 1991-2023
+Contains Synopsys proprietary information.
+Compiler version U-2023.03; Runtime version U-2023.03;  Nov 30 16:57 2024
+----------------------------------------------------------------
+UVM-1.1d
+(C) 2007-2013 Mentor Graphics Corporation
+(C) 2007-2013 Cadence Design Systems, Inc.
+(C) 2006-2013 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+  See http://www.eda.org/svdb/view.php?id=3313 for more details.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test start_counter_test...
+UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+-----------------------------------------------------------------------------
+Name                       Type                                   Size  Value
+-----------------------------------------------------------------------------
+uvm_test_top               start_counter_test                     -     @460 
+  m_env                    ahb_config_pcounter_env                -     @468 
+    ahb_master_agent_0     uvm_agent                              -     @482 
+      master_driver        uvm_driver #(REQ,RSP)                  -     @615 
+        rsp_port           uvm_analysis_port                      -     @632 
+        seq_item_port      uvm_seq_item_pull_port                 -     @623 
+      master_monitor       uvm_monitor                            -     @764 
+      master_sequencer     uvm_sequencer                          -     @641 
+        rsp_export         uvm_analysis_export                    -     @649 
+        seq_item_export    uvm_seq_item_pull_imp                  -     @755 
+        arbitration_queue  array                                  0     -    
+        lock_queue         array                                  0     -    
+        num_last_reqs      integral                               32    'd1  
+        num_last_rsps      integral                               32    'd1  
+    virtual_sequencer      ahb_config_pcounter_virtual_sequencer  -     @490 
+      rsp_export           uvm_analysis_export                    -     @498 
+      seq_item_export      uvm_seq_item_pull_imp                  -     @604 
+      arbitration_queue    array                                  0     -    
+      lock_queue           array                                  0     -    
+      num_last_reqs        integral                               32    'd1  
+      num_last_rsps        integral                               32    'd1  
+-----------------------------------------------------------------------------
+
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(89) @ 0: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] The sequence item is : ----------------------------------------------------------------------------------------------------------------------------
+Name                           Type                    Size  Value                                                          
+----------------------------------------------------------------------------------------------------------------------------
+req                            uvm_sequence_item       -     @798                                                           
+  m_address                    integral                16    'h1c                                                           
+  m_rdata                      integral                16    'h87e9                                                         
+  m_read_write                 ahb_read_write_e        1     AHB_WRITE                                                      
+  m_response_type              ahb_response_e          2     AHB_OKAY                                                       
+  m_transfer_type_enum         ahb_transfer_type_enum  2     AHB_BUSY                                                       
+  begin_time                   time                    64    0                                                              
+  depth                        int                     32    'd2                                                            
+  parent sequence (name)       string                  8     subSeq_0                                                       
+  parent sequence (full name)  string                  63    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer.subSeq_0
+  sequencer                    string                  54    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer         
+----------------------------------------------------------------------------------------------------------------------------
+
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(111) @ 170000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] transfer is write
+Wrote START_COUNTER register with          x
+Wrote START_COUNTER register with   1
+(   190) Count value =           2
+(   200) Count value =           3
+(   210) Count value =           4
+(   220) Count value =           5
+(   230) Count value =           6
+(   240) Count value =           7
+(   250) Count value =           8
+(   260) Count value =           9
+(   270) Count value =          10
+(   280) Count value =          11
+(   290) Count value =          12
+(   300) Count value =          13
+(   310) Count value =          14
+(   320) Count value =          15
+(   330) Count value =          16
+(   340) Count value =          17
+(   350) Count value =          18
+(   360) Count value =          19
+(   370) Count value =          20
+(   380) Count value =          21
+(   390) Count value =          22
+(   400) Count value =          23
+(   410) Count value =          24
+(   420) Count value =          25
+(   430) Count value =          26
+(   440) Count value =          27
+(   450) Count value =          28
+(   460) Count value =          29
+(   470) Count value =          30
+(   480) Count value =          31
+(   490) Count value =          32
+(   500) Count value =          33
+(   510) Count value =          34
+(   520) Count value =          35
+(   530) Count value =          36
+(   540) Count value =          37
+(   550) Count value =          38
+(   560) Count value =          39
+(   570) Count value =          40
+(   580) Count value =          41
+(   590) Count value =          42
+(   600) Count value =          43
+(   610) Count value =          44
+(   620) Count value =          45
+(   630) Count value =          46
+(   640) Count value =          47
+(   650) Count value =          48
+(   660) Count value =          49
+(   670) Count value =          50
+(   680) Count value =           2
+(   690) Count value =           3
+(   700) Count value =           4
+(   710) Count value =           5
+(   720) Count value =           6
+(   730) Count value =           7
+(   740) Count value =           8
+(   750) Count value =           9
+(   760) Count value =          10
+(   770) Count value =          11
+(   780) Count value =          12
+(   790) Count value =          13
+(   800) Count value =          14
+(   810) Count value =          15
+(   820) Count value =          16
+(   830) Count value =          17
+(   840) Count value =          18
+(   850) Count value =          19
+(   860) Count value =          20
+(   870) Count value =          21
+(   880) Count value =          22
+(   890) Count value =          23
+(   900) Count value =          24
+(   910) Count value =          25
+(   920) Count value =          26
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 920000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :    5
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[RNTST]     1
+[TEST_DONE]     1
+[UVMTOP]     1
+[uvm_driver #(REQ,RSP)]     2
+$finish called from file "/home/student/cadWorkDir/synopsys/uvm_workshop/uvm-1.1d/src/base/uvm_root.svh", line 430.
+$finish at simulation time               920000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 920000 ps
+CPU Time:      0.340 seconds;       Data structure size:   0.1Mb
+Sat Nov 30 16:57:04 2024

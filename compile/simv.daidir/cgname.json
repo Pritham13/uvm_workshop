@@ -1,0 +1,98 @@
+{
+    "vcs_paramclassrepository": [
+        "vcs_paramclassrepository",
+        "hEeZs",
+        "module",
+        1
+    ],
+    "_vcs_unit__3158326755": [
+        "_vcs_unit__3158326755",
+        "mUVdm",
+        "module",
+        2
+    ],
+    "std": [
+        "std",
+        "reYIK",
+        "module",
+        3
+    ],
+    "uvm_pkg": [
+        "uvm_pkg",
+        "zr7M1",
+        "module",
+        4
+    ],
+    "ahb_enum_types_pkg": [
+        "ahb_enum_types_pkg",
+        "aTFAa",
+        "module",
+        5
+    ],
+    "pcounter_ahb_wrapper": [
+        "pcounter_ahb_wrapper",
+        "kNBp6",
+        "module",
+        6
+    ],
+    "ahb_enum_pkg": [
+        "ahb_enum_pkg",
+        "yqM4E",
+        "module",
+        7
+    ],
+    "ahb_interface": [
+        "ahb_interface",
+        "wmS07",
+        "module",
+        8
+    ],
+    "ahb_master_transaction_pkg": [
+        "ahb_master_transaction_pkg",
+        "tAMe4",
+        "module",
+        9
+    ],
+    "ahb_master_agent_pkg": [
+        "ahb_master_agent_pkg",
+        "wTq11",
+        "module",
+        10
+    ],
+    "ahb_config_pcounter_env_pkg": [
+        "ahb_config_pcounter_env_pkg",
+        "k7SjE",
+        "module",
+        11
+    ],
+    "ahb_master_basic_sequence_pkg": [
+        "ahb_master_basic_sequence_pkg",
+        "k4Vyk",
+        "module",
+        12
+    ],
+    "ahb_config_pcounter_virtual_sequence_pkg": [
+        "ahb_config_pcounter_virtual_sequence_pkg",
+        "RNZZY",
+        "module",
+        13
+    ],
+    "ahb_config_pcounter_test_pkg": [
+        "ahb_config_pcounter_test_pkg",
+        "nId7m",
+        "module",
+        14
+    ],
+    "ahb_config_pcounter_testbench_top": [
+        "ahb_config_pcounter_testbench_top",
+        "Wm9bg",
+        "module",
+        15
+    ],
+    "...MASTER...": [
+        "SIM",
+        "amcQw",
+        "module",
+        16
+    ]
+}

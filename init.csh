@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-# Sourcing cshrc for tlcsh
-
-source /home/student/cadWorkDir/myProjects/synopsys/.cshrc
-
-# Path for uvm workshhop 
-setenv UVM_HOME "${PWD}/uvm-1.1d/src"
-
-
-# Path for vip files
-
-setenv AHB_VIP_HOME "${PWD}/ahb_vip"  
-
-setenv VK_HOME  "${PWD}"
-
-setenv VK_VERIF_DIR "${VK_HOME}/verif"
-
-setenv DUT_DIR "${PWD}/dut"
-
-=======
 #!/usr/bin/csh
 
 # source the VCS tool
@@ -39,6 +19,7 @@ setenv VK_AHB_INTERFACE_HOME "${VK_AHB_VIP_HOME}/ahb_interface"
 
 alias .. cd ..
 alias l ls
+alias nvim gvim
 alias la ls -lah
 alias c clear
->>>>>>> dc7df3c (adding files from the final session)
+alias run "make clean && make compile && make run"

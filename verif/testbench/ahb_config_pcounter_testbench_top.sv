@@ -10,23 +10,13 @@
 
 `include "clock_generator.sv"
 `include "reset_generator.sv"
-<<<<<<< HEAD
-//`include "ahb_config_pcounter_defines.sv"
-=======
 `include "ahb_config_pcounter_defines.sv"
->>>>>>> dc7df3c (adding files from the final session)
 
 module ahb_config_pcounter_testbench_top();
 
     import uvm_pkg::*;
-<<<<<<< HEAD
-//    import ahb_config_pcounter_test_pkg::*;
-    import ahb_enum_pkg::*;
-//    import pcounter_ahb_wrapper::*;
-=======
     import ahb_config_pcounter_test_pkg::*;
     import ahb_enum_pkg::*;
->>>>>>> dc7df3c (adding files from the final session)
     import ahb_master_transaction_pkg::*;
     import ahb_master_agent_pkg::*;
 
@@ -37,47 +27,6 @@ module ahb_config_pcounter_testbench_top();
     wire  rst_sig_0;
 
     // Instantiate the Actual HardWare Interfaces.
-<<<<<<< HEAD
-    // Fix me: Please Put your your logic here
-    ahb_interface#(.ADDR_WIDTH(32),.DATA_WIDTH(32)) ahb_slave_interface(.clk(clk_sig_0),.rst(rst_sig_0));
-
-    virtual ahb_interface#(.ADDR_WIDTH(32),.DATA_WIDTH(32)) vif_0 ;
-
-    
-    // Instantiate the virtual interface
-    // Fix me: Please Put your your logic here
-
-    // Instantiate the Hardware Components
-    //Fix me: Please Put your your logic here
-    pcounter_ahb_wrapper dut(
-    .hclk       (ahb_slave_interface.HCLK),
-    .hreset_n   (ahb_slave_interface.HRESETn),
-    .hready_in  (ahb_slave_interface.HREADY_IN),
-    .haddr      (ahb_slave_interface.HADDR),
-    .hwdata     (ahb_slave_interface.HWDATA),
-    .hrdata     (ahb_slave_interface.HRDATA),
-    .hwrite     (ahb_slave_interface.HWRITE),
-    .hresp      (ahb_slave_interface.HRESP),
-    .htrans     (ahb_slave_interface.HTRANS),
-    .hburst     (ahb_slave_interface.HBURST),
-    .hsize      (ahb_slave_interface.HSIZE),
-    .hready     (ahb_slave_interface.HREADY),
-    .hsel       (ahb_slave_interface.HSEL),
-    .hprot      (ahb_slave_interface.HPROT)
-    );
-
-    clock_generator#(.TIME_PERIOD(10)) clk_gen_inst_0();
-
-    reset_generator#(.POWER_ON_DELAY(15), .POLARITY(ACTIVE_LOW)) rst_gen_inst_0();
-
-
-
-    // "ahb_slave_interface(AHB)" Interface Port-Mappings to Input Ports on the Instance "dut"
-    //Fix me: Please Put your your logic here
-
-    // "ahb_slave_interface(AHB)" Interface Port-Mappings to Output Ports on the Instance "dut"
-    //Fix me: Please Put your your logic here
-=======
     ahb_interface#(.ADDR_WIDTH(16), .DATA_WIDTH(16)) ahb_slave_interface(.vk_clk_port(clk_sig_0),.vk_rst_port(rst_sig_0));
 
     virtual ahb_interface#(.ADDR_WIDTH(16), .DATA_WIDTH(16)) vif_0;
@@ -121,7 +70,6 @@ module ahb_config_pcounter_testbench_top();
     // assign ahb_slave_interface.HPROT = dut.hprot[3:0];
     // assign ahb_slave_interface.HRESP = ahb_response_e'(dut.hresp);
 
->>>>>>> dc7df3c (adding files from the final session)
 
     // Adhoc/Net Connections to Output Ports of the Instance "clk_gen_inst_0"
     assign clk_sig_0 = clk_gen_inst_0.clk_out;
@@ -134,20 +82,11 @@ module ahb_config_pcounter_testbench_top();
 
     initial
     begin
-<<<<<<< HEAD
-        // Assigning the SV interface to virtual interface variable
-        //Fix me: Please Put your your logic here
-	vif_0 = ahb_slave_interface;
-
-        // Set the virtual interfaces to the config db
-        uvm_config_db#(virtual ahb_interface#(.ADDR_WIDTH(32), .DATA_WIDTH(32)))::set(uvm_root::get(), "*", "vif_0",vif_0);
-=======
         // Assigning the virtual interface variables  to the SvInterfaceInstances
         vif_0 = ahb_slave_interface;
 
         // Set the virtual interfaces to the config db
         uvm_config_db#(virtual ahb_interface#(.ADDR_WIDTH(16), .DATA_WIDTH(16)))::set(uvm_root::get(), "*", "vif_0", vif_0);
->>>>>>> dc7df3c (adding files from the final session)
 
 `ifdef VCD_DUMP
 

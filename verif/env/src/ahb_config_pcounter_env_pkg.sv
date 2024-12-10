@@ -17,11 +17,7 @@ package ahb_config_pcounter_env_pkg;
     import ahb_master_transaction_pkg::*;
     import ahb_master_agent_pkg::*;
 
-<<<<<<< HEAD
-//    `include "ahb_config_pcounter_defines.sv"
-=======
     `include "ahb_config_pcounter_defines.sv"
->>>>>>> dc7df3c (adding files from the final session)
     `include "ahb_config_pcounter_virtual_sequencer.sv"
     `include "ahb_config_pcounter_env.sv"
 

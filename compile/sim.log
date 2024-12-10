@@ -1,0 +1,222 @@
+Command: /home/student/cadWorkDir/myProjects/synopsys/uvm_workshop/compile/./simv +UVM_DEFAULT_TIMEOUT=9200ns +UVM_VERBOSITY=UVM_MEDIUM -l /home/student/cadWorkDir/synopsys/uvm_workshop/compile//sim.log +UVM_TESTNAME=count_0_to_100_by_step_5_test
+Chronologic VCS simulator copyright 1991-2023
+Contains Synopsys proprietary information.
+Compiler version U-2023.03; Runtime version U-2023.03;  Nov 30 18:06 2024
+----------------------------------------------------------------
+UVM-1.1d
+(C) 2007-2013 Mentor Graphics Corporation
+(C) 2007-2013 Cadence Design Systems, Inc.
+(C) 2006-2013 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+  See http://www.eda.org/svdb/view.php?id=3313 for more details.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test count_0_to_100_by_step_5_test...
+UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+-----------------------------------------------------------------------------
+Name                       Type                                   Size  Value
+-----------------------------------------------------------------------------
+uvm_test_top               count_0_to_100_by_step_5_test          -     @460 
+  m_env                    ahb_config_pcounter_env                -     @468 
+    ahb_master_agent_0     uvm_agent                              -     @482 
+      master_driver        uvm_driver #(REQ,RSP)                  -     @615 
+        rsp_port           uvm_analysis_port                      -     @632 
+        seq_item_port      uvm_seq_item_pull_port                 -     @623 
+      master_monitor       uvm_monitor                            -     @764 
+      master_sequencer     uvm_sequencer                          -     @641 
+        rsp_export         uvm_analysis_export                    -     @649 
+        seq_item_export    uvm_seq_item_pull_imp                  -     @755 
+        arbitration_queue  array                                  0     -    
+        lock_queue         array                                  0     -    
+        num_last_reqs      integral                               32    'd1  
+        num_last_rsps      integral                               32    'd1  
+    virtual_sequencer      ahb_config_pcounter_virtual_sequencer  -     @490 
+      rsp_export           uvm_analysis_export                    -     @498 
+      seq_item_export      uvm_seq_item_pull_imp                  -     @604 
+      arbitration_queue    array                                  0     -    
+      lock_queue           array                                  0     -    
+      num_last_reqs        integral                               32    'd1  
+      num_last_rsps        integral                               32    'd1  
+-----------------------------------------------------------------------------
+
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(89) @ 0: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] The sequence item is : ----------------------------------------------------------------------------------------------------------------------------
+Name                           Type                    Size  Value                                                          
+----------------------------------------------------------------------------------------------------------------------------
+req                            uvm_sequence_item       -     @798                                                           
+  m_address                    integral                16    'h4                                                            
+  m_rdata                      integral                16    'h87e9                                                         
+  m_read_write                 ahb_read_write_e        1     AHB_WRITE                                                      
+  m_response_type              ahb_response_e          2     AHB_OKAY                                                       
+  m_transfer_type_enum         ahb_transfer_type_enum  2     AHB_BUSY                                                       
+  begin_time                   time                    64    0                                                              
+  depth                        int                     32    'd2                                                            
+  parent sequence (name)       string                  8     subSeq_0                                                       
+  parent sequence (full name)  string                  63    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer.subSeq_0
+  sequencer                    string                  54    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer         
+----------------------------------------------------------------------------------------------------------------------------
+
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(111) @ 170000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] transfer is write
+Wrote CSR_MIN register with          x
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(89) @ 170000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] The sequence item is : ----------------------------------------------------------------------------------------------------------------------------
+Name                           Type                    Size  Value                                                          
+----------------------------------------------------------------------------------------------------------------------------
+req                            uvm_sequence_item       -     @859                                                           
+  m_address                    integral                16    'h8                                                            
+  m_rdata                      integral                16    'hb2a1                                                         
+  m_read_write                 ahb_read_write_e        1     AHB_WRITE                                                      
+  m_response_type              ahb_response_e          2     AHB_SPLIT                                                      
+  m_transfer_type_enum         ahb_transfer_type_enum  2     AHB_IDLE                                                       
+  begin_time                   time                    64    170000                                                         
+  depth                        int                     32    'd2                                                            
+  parent sequence (name)       string                  8     subSeq_1                                                       
+  parent sequence (full name)  string                  63    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer.subSeq_1
+  sequencer                    string                  54    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer         
+----------------------------------------------------------------------------------------------------------------------------
+
+Wrote CSR_MIN register with   0
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(111) @ 190000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] transfer is write
+Wrote CSR_MAX register with   0
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(89) @ 190000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] The sequence item is : ----------------------------------------------------------------------------------------------------------------------------
+Name                           Type                    Size  Value                                                          
+----------------------------------------------------------------------------------------------------------------------------
+req                            uvm_sequence_item       -     @871                                                           
+  m_address                    integral                16    'hc                                                            
+  m_rdata                      integral                16    'hfe52                                                         
+  m_read_write                 ahb_read_write_e        1     AHB_WRITE                                                      
+  m_response_type              ahb_response_e          2     AHB_SPLIT                                                      
+  m_transfer_type_enum         ahb_transfer_type_enum  2     AHB_BUSY                                                       
+  begin_time                   time                    64    190000                                                         
+  depth                        int                     32    'd2                                                            
+  parent sequence (name)       string                  8     subSeq_2                                                       
+  parent sequence (full name)  string                  63    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer.subSeq_2
+  sequencer                    string                  54    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer         
+----------------------------------------------------------------------------------------------------------------------------
+
+Wrote CSR_MAX register with 100
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(111) @ 210000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] transfer is write
+Wrote CSR_STEP register with 100
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(89) @ 210000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] The sequence item is : ----------------------------------------------------------------------------------------------------------------------------
+Name                           Type                    Size  Value                                                          
+----------------------------------------------------------------------------------------------------------------------------
+req                            uvm_sequence_item       -     @883                                                           
+  m_address                    integral                16    'h1c                                                           
+  m_rdata                      integral                16    'hc05e                                                         
+  m_read_write                 ahb_read_write_e        1     AHB_WRITE                                                      
+  m_response_type              ahb_response_e          2     AHB_SPLIT                                                      
+  m_transfer_type_enum         ahb_transfer_type_enum  2     AHB_SEQ                                                        
+  begin_time                   time                    64    210000                                                         
+  depth                        int                     32    'd2                                                            
+  parent sequence (name)       string                  8     subSeq_3                                                       
+  parent sequence (full name)  string                  63    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer.subSeq_3
+  sequencer                    string                  54    uvm_test_top.m_env.ahb_master_agent_0.master_sequencer         
+----------------------------------------------------------------------------------------------------------------------------
+
+Wrote CSR_STEP register with   5
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/vk_ahb_vip/ahb_master/ahb_master_driver.sv(111) @ 230000: uvm_test_top.m_env.ahb_master_agent_0.master_driver [uvm_driver #(REQ,RSP)] transfer is write
+Wrote START_COUNTER register with   5
+Wrote START_COUNTER register with   1
+(   250) Count value =           0
+(   260) Count value =           5
+(   270) Count value =          10
+(   280) Count value =          15
+(   290) Count value =          20
+(   300) Count value =          25
+(   310) Count value =          30
+(   320) Count value =          35
+(   330) Count value =          40
+(   340) Count value =          45
+(   350) Count value =          50
+(   360) Count value =          55
+(   370) Count value =          60
+(   380) Count value =          65
+(   390) Count value =          70
+(   400) Count value =          75
+(   410) Count value =          80
+(   420) Count value =          85
+(   430) Count value =          90
+(   440) Count value =          95
+(   450) Count value =         100
+(   460) Count value =           0
+(   470) Count value =           5
+(   480) Count value =          10
+(   490) Count value =          15
+(   500) Count value =          20
+(   510) Count value =          25
+(   520) Count value =          30
+(   530) Count value =          35
+(   540) Count value =          40
+(   550) Count value =          45
+(   560) Count value =          50
+(   570) Count value =          55
+(   580) Count value =          60
+(   590) Count value =          65
+(   600) Count value =          70
+(   610) Count value =          75
+(   620) Count value =          80
+(   630) Count value =          85
+(   640) Count value =          90
+(   650) Count value =          95
+(   660) Count value =         100
+(   670) Count value =           0
+(   680) Count value =           5
+(   690) Count value =          10
+(   700) Count value =          15
+(   710) Count value =          20
+(   720) Count value =          25
+(   730) Count value =          30
+(   740) Count value =          35
+(   750) Count value =          40
+(   760) Count value =          45
+(   770) Count value =          50
+(   780) Count value =          55
+(   790) Count value =          60
+(   800) Count value =          65
+(   810) Count value =          70
+(   820) Count value =          75
+(   830) Count value =          80
+(   840) Count value =          85
+(   850) Count value =          90
+(   860) Count value =          95
+(   870) Count value =         100
+(   880) Count value =           0
+(   890) Count value =           5
+(   900) Count value =          10
+(   910) Count value =          15
+(   920) Count value =          20
+(   930) Count value =          25
+(   940) Count value =          30
+(   950) Count value =          35
+(   960) Count value =          40
+(   970) Count value =          45
+(   980) Count value =          50
+UVM_INFO /home/student/cadWorkDir/synopsys/uvm_workshop/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 980000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   11
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[RNTST]     1
+[TEST_DONE]     1
+[UVMTOP]     1
+[uvm_driver #(REQ,RSP)]     8
+$finish called from file "/home/student/cadWorkDir/synopsys/uvm_workshop/uvm-1.1d/src/base/uvm_root.svh", line 430.
+$finish at simulation time               980000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 980000 ps
+CPU Time:      0.420 seconds;       Data structure size:   0.1Mb
+Sat Nov 30 18:06:38 2024
